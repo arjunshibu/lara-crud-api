@@ -7,8 +7,8 @@ Use `Accept: application/json`
 
 ### Endpoints
 ```
-post /users/signup
-post /users/login
+post /users/signup - data: name, username, email, password
+post /users/login - data: email, password
 get /users
 get /users/{id}
 get /users/{id}/posts
