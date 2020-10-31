@@ -22,6 +22,6 @@ class UserController extends Controller
 
     // get /users/{id}/posts
     public function showPosts($id) {
-        return response(Post::where('user_id', $id)->latest()->get());
+        return response(Post::where('author', $id)->latest()->get());
     }
 }

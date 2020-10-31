@@ -26,8 +26,8 @@ class PostController extends Controller
         ]);
         
         $data = $request->all();
-        $data['user_id'] = $request->user()->id;
-
+        $data['author'] = $request->user()->id;
+        
         $post = Post::create($data);
 
         return response($post, 201);
@@ -37,7 +37,7 @@ class PostController extends Controller
     public function update(Request $request, $id) {
         $post = Post::findOrFail($id);
 
-        if ($request->user()->id != $post->author->id) {
+        if ($request->user()->id != $post->author) {
             return response()->json([
                 'message' => 'Unauthenticated'
             ], 401);
@@ -50,23 +50,23 @@ class PostController extends Controller
         $data = $request->all();
         
         $post->update($data);
-        $updatedPost = Post::find($id);
-        
-        return response($updatedPost);
+        $post['author'] = $post['author'];
+
+        return response($post);
     }
 
     // delete /posts/{id}
     public function destroy(Request $request, $id) {
         $post = Post::findOrFail($id);
-        if ($request->user()->id != $post->author->id) {
+        if ($request->user()->id != $post->author) {
             return response()->json([
                 'message' => 'Unauthenticated'
             ], 401);
         }
         
-        $deletedPost = Post::find($id);
         $post->delete();
+        $post['author'] = $post['author'];
 
-        return response($deletedPost);
+        return response($post);
     }
 }

@@ -11,12 +11,14 @@ Route::post('users/login', [AuthController::class, 'login']);
 Route::get('users', [UserController::class, 'index']);
 Route::get('users/{id}', [UserController::class, 'show']);
 Route::get('users/{id}/posts', [UserController::class, 'showPosts']);
+
 Route::get('posts', [PostController::class, 'index']);
 Route::get('posts/{id}', [PostController::class, 'show']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('users/logout/current', [AuthController::class, 'logout']);
     Route::get('users/logout/all', [AuthController::class, 'logoutAll']);
+
     Route::post('posts', [PostController::class, 'store']);
     Route::patch('posts/{id}', [PostController::class, 'update']);
     Route::delete('posts/{id}', [PostController::class, 'destroy']);
