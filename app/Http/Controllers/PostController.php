@@ -50,7 +50,6 @@ class PostController extends Controller
         $data = $request->all();
         
         $post->update($data);
-        $post['author'] = $post['author'];
 
         return response($post);
     }
@@ -65,7 +64,6 @@ class PostController extends Controller
         }
         
         $post->delete();
-        $post['author'] = $post['author'];
 
         return response($post);
     }
